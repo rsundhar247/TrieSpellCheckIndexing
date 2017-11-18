@@ -11,10 +11,14 @@ public class SpellCheck {
 		trie.insert("you");
 		trie.insert("imagination");
 		trie.insert("and");
-		trie.insert("will");
+		trie.insert("why");
 		trie.insert("what");
+		trie.insert("while");
+		trie.insert("winner");
 		
 		spellCheck(input);
+		System.out.println("\n");
+		System.out.println(trie.autoSuggest("w"));
 	}
 	
 	public static void spellCheck(String input) {

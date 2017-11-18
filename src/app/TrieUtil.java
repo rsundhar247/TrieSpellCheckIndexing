@@ -1,14 +1,19 @@
 package app;
 
+import java.util.ArrayList;
+
 public class TrieUtil {
 
+	int CHARACTER_MAX = 26;
+	int maxSuggestions = 4;
+	
 	class TrieNode {
 		
-		TrieNode children[] = new TrieNode[26];
+		TrieNode children[] = new TrieNode[CHARACTER_MAX];
 		boolean isEndOfWord;
 		
 		public TrieNode() {
-			for(int i=0; i<26; i++) {
+			for(int i=0; i<CHARACTER_MAX; i++) {
 				children[i] = null;
 			}
 			isEndOfWord = false;
@@ -42,8 +47,7 @@ public class TrieUtil {
 		
 		for(int i=0; i<length; i++) {
 			search = word.charAt(i);
-			TrieNode childNode = currentNode.children[search-'a'];
-			if(childNode != null) {
+			if(currentNode.children[search-'a'] != null) {
 				currentNode = currentNode.children[search-'a'];
 			} else {
 				return false;
@@ -81,10 +85,61 @@ public class TrieUtil {
 	}
 	
 	public boolean isFree(TrieNode node) {
-		for(int i=0; i<26; i++) {
+		for(int i=0; i<CHARACTER_MAX; i++) {
 			if(node.children[i] != null)
 				return false;
 		}
 		return true;
+	}
+	
+	public ArrayList<String> autoSuggest(String word) {
+		
+		ArrayList<String> idxList = new ArrayList<String>();
+		TrieNode currentNode = root;
+		word = word.toLowerCase();
+		int length = word.length();
+		char search;
+		
+		for(int i=0; i<length; i++) {
+			search = word.charAt(i);
+			if(currentNode.children[search-'a'] != null) {
+				currentNode = currentNode.children[search-'a'];
+			} else {
+				break;
+			}
+		}
+		
+		if(currentNode.isEndOfWord) {
+			idxList.add(word);
+			--maxSuggestions;
+		}
+		
+		idxList.addAll(autoSuggest(currentNode,word));
+		
+		return idxList;
+	}
+	
+	public ArrayList<String> autoSuggest(TrieNode currentNode, String word){
+		
+		ArrayList<String> idxList = new ArrayList<String>();
+		if(maxSuggestions>0) {
+			
+			for(int i=0; i<CHARACTER_MAX; i++) {
+				if(maxSuggestions>0 && currentNode.children[i] != null) {
+					currentNode = currentNode.children[i];
+					char letter = (char) ('a'+i);
+					word = word + letter;
+					if(currentNode.isEndOfWord) {
+						idxList.add(word);
+						--maxSuggestions;
+					}
+					idxList.addAll(autoSuggest(currentNode, word));
+				} else if(maxSuggestions<=0) {
+					break;
+				}
+			}
+		}
+		
+		return idxList;
 	}
 }
