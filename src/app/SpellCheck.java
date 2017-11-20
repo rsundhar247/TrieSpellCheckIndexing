@@ -33,7 +33,7 @@ public class SpellCheck {
 		
 		spellCheck(input); // function call to check the spelling of a sentence
 		System.out.println("\n");
-		System.out.println(trie.autoSuggest("w"));
+		System.out.println(trie.autoSuggest("wh"));
 	}
 	
 	/*

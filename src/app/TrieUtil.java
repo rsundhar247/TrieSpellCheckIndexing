@@ -140,7 +140,7 @@ public class TrieUtil {
 			if(currentNode.children[search-'a'] != null) {
 				currentNode = currentNode.children[search-'a']; // search-'a' -> gives the index of a character in the array
 			} else {
-				break;
+				return null;
 			}
 		}
 		
@@ -162,19 +162,21 @@ public class TrieUtil {
 		
 		ArrayList<String> idxList = new ArrayList<String>();
 		String toSearch = "";
+		TrieNode activeNode = new TrieNode();
+		
 		if(maxSuggestions>0) {
-			
 			for(int i=0; i<CHARACTER_MAX; i++) {
-				if(maxSuggestions>0 && currentNode.children[i] != null) {
-					currentNode = currentNode.children[i]; // from "an", traverse and explore further nodes, thus forming "and"
+				activeNode = currentNode;
+				if(maxSuggestions>0 && activeNode.children[i] != null) {
+					activeNode = activeNode.children[i]; // from "an", traverse and explore further nodes, thus forming "and"
 					char letter = (char) ('a'+i); // will contain 'd', as in the above "and" case
 					toSearch = word;
 					toSearch = toSearch + letter;
-					if(currentNode.isEndOfWord) { // When the current node is a end of word node, then it means we have traversed a proper word and so we are adding it to the list
+					if(activeNode.isEndOfWord) { // When the current node is a end of word node, then it means we have traversed a proper word and so we are adding it to the list
 						idxList.add(toSearch);
 						--maxSuggestions;
 					}
-					idxList.addAll(autoSuggest(currentNode, toSearch)); // recursive call to the same function
+					idxList.addAll(autoSuggest(activeNode, toSearch)); // recursive call to the same function
 				} else if(maxSuggestions<=0) {
 					break;
 				}
