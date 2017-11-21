@@ -1,12 +1,11 @@
 package sadden.dictionary.op;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
+
+import app.TrieUtil;
 
 public class Dictionary {
 
@@ -26,7 +25,7 @@ public class Dictionary {
 	/**
 	 * read all words from dictionary and print
 	 */
-	public void ReadDictionary()
+	public TrieUtil ReadDictionary(TrieUtil trieUtil)
 	{
 		try {
 
@@ -37,14 +36,12 @@ public class Dictionary {
 			String sCurrentLine;
 
 			while ((sCurrentLine = breader.readLine()) != null) {
-				
+				trieUtil.insert(sCurrentLine);
 				System.out.println(sCurrentLine);
 			}
 
 		} catch (IOException e) {
-
 			e.printStackTrace();
-
 		} finally {
 
 			try {
@@ -55,12 +52,11 @@ public class Dictionary {
 					freader.close();
 
 			} catch (IOException ex) {
-
 				ex.printStackTrace();
-
 			}
-		
 		}
+		
+		return trieUtil;
 	}
 	
 	/**
@@ -91,7 +87,7 @@ public class Dictionary {
 	            return true;
 	        } catch (Exception e) {  
 	            e.printStackTrace();  
-	            System.out.println("writting failure！");  
+	            System.out.println("writting failure");  
 	            return false;
 	        }         
 	}

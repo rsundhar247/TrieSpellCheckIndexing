@@ -12,28 +12,23 @@ Key Features - Insert, Delete, Search, Spell Check, Auto Suggest
 package app;
 
 import java.util.ArrayList;
+import sadden.dictionary.op.*;
 
 public class SpellCheck {
 	
-	static TrieUtil trie = new TrieUtil();
+	static TrieUtil trieUtil = new TrieUtil();
 
 	public static void main(String[] args) {
-		String input = "Imagination is the beginning of creation. You imagine what you desire; you will what you imagine; and at last you create what you will.";
+		String input = "Raj Imagination is the beginning of creation. You imagine what you desire; you will what you imagine; and at last you create what you will.";
 		
-		/*
-		 * Inserting a sample data. Need to replace this with read and load from dictionary. 
-		 */
-		trie.insert("you");
-		trie.insert("imagination");
-		trie.insert("and");
-		trie.insert("why");
-		trie.insert("what");
-		trie.insert("while");
-		trie.insert("winner");
+		//Loading the list of words from dictionary		
+		Dictionary dic = new Dictionary();
+		trieUtil = dic.ReadDictionary(trieUtil);
+		//dic.WriteDictionary("44434sre");
 		
 		spellCheck(input); // function call to check the spelling of a sentence
 		System.out.println("\n");
-		System.out.println(trie.autoSuggest("wh"));
+		System.out.println(trieUtil.autoSuggest("wh"));
 	}
 	
 	/*
@@ -46,19 +41,19 @@ public class SpellCheck {
 		String[] wordList = input.trim().toLowerCase().replaceAll("[^a-z ]", "").split(" "); // replaceAll function is used to ignore all the special characters (user's will be taken as users)
 																							// We then split the sentence into an array of words, seperated by space
 		for(int i=0; i<wordList.length; i++) {
-			isValid = trie.search(wordList[i]); // For each word, we call search function in trie. It returns true if the word is present in the trie, false otherwise.
+			isValid = trieUtil.search(wordList[i]); // For each word, we call search function in trie. It returns true if the word is present in the trie, false otherwise.
 			if(! isValid) {
 				notValid.add(wordList[i]);
 			}
 		}
 		
 		if(! notValid.isEmpty()) {
-			System.out.println("Invalid Words are :: ");
+			System.out.println("\n \nInvalid Words are :: ");
 			for(String word: notValid) {
 				System.out.println(word);
 			}
 		} else {
-			System.out.println("No Invalid words");
+			System.out.println("\n \nNo Invalid words");
 		}
 	}
 }
