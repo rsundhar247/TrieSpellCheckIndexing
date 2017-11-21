@@ -61,4 +61,12 @@ public class SpellCheck {
 			System.out.println("No Invalid words");
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> origin/master
+>>>>>>> refs/remotes/origin/master
