@@ -31,31 +31,24 @@ public class Dictionary {
 
 			freader = new FileReader(path);
 			breader = new BufferedReader(freader);
-
-			//read a word from the list
 			String sCurrentLine;
 
 			while ((sCurrentLine = breader.readLine()) != null) {
 				trieUtil.insert(sCurrentLine);
-				System.out.println(sCurrentLine);
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 
 			try {
-
 				if (breader != null)
 					breader.close();
 				if (freader != null)
 					freader.close();
-
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
-		
+		}	
 		return trieUtil;
 	}
 	
@@ -66,16 +59,7 @@ public class Dictionary {
 	public boolean WriteDictionary(String word)
 	{
 		 try {  
-//	            FileOutputStream out = new FileOutputStream(path);  
-//	            OutputStreamWriter outWriter = new OutputStreamWriter(out, "UTF-8");  
-//	            BufferedWriter bufWrite = new BufferedWriter(outWriter);  
-//	       
-//	            bufWrite.write(word+"\r\n");  
-//	              
-//	            bufWrite.close();  
-//	            outWriter.close();  
-//	            out.close();  
-	            
+
 	            
 	            RandomAccessFile randomFile = new RandomAccessFile(path, "rw");   
 	            long fileLength = randomFile.length();
@@ -92,4 +76,7 @@ public class Dictionary {
 	        }         
 	}
 
+//	long begintime = System.currentTimeMillis();	
+//	 long begintime2 = System.currentTimeMillis();
+//	 System.out.println(begintime2 - begintime);
 }

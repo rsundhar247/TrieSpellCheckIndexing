@@ -24,7 +24,8 @@ public class SpellCheck {
 		//Loading the list of words from dictionary		
 		Dictionary dic = new Dictionary();
 		trieUtil = dic.ReadDictionary(trieUtil);
-		//dic.WriteDictionary("44434sre");
+		
+
 		
 		spellCheck(input); // function call to check the spelling of a sentence
 		System.out.println("\n");
