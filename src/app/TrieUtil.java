@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TrieUtil {
 
 	int CHARACTER_MAX = 26; // Each node can have 26 children. A to Z.
-	int maxSuggestions = 5; // To restrict the maximum number of results returned. A - A, An, Apple, Able, America.
+	int maxSuggestions = 10; // To restrict the maximum number of results returned. A - A, An, Apple, Able, America.
 	
 	/*
 	 * This class is used to build object for each instance.
