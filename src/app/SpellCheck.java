@@ -26,11 +26,15 @@ public class SpellCheck {
 		Dictionary dic = new Dictionary();
 		trieUtil = dic.ReadDictionary(trieUtil);
 		
+		System.out.println("\n \n \nAre you a student or teacher. \nEnter s/S for Student; t/T for Teacher");
+		String access = in.next();
+		boolean fullAccess = (access.equals("t") || access.equals("T")) ? true : false;
+		
 		while(true) {
-			System.out.println("\n\n\nEnter your Option:\n1. Spell Check.\n2. Auto Suggest.");
+			System.out.println("\n\n\nEnter your Option:\n1. Spell Check.\n2. Auto Suggest.\n3. Insert.\n4. Delete");
 			int option = in.nextInt();
 			if(option == 1) {
-				System.out.println("\nEnter the Sentence that needs to be spell checked.\nSpecial characters are not allowed.");
+				System.out.println("\nEnter the Sentence that needs to be spell checked.\nSpecial Characters and Numbers are not allowed.");
 				String sentence = in.next();
 				sentence += in.nextLine();
 				spellCheck(sentence);
@@ -43,6 +47,45 @@ public class SpellCheck {
 					System.out.println("\n"+suggestion);
 				} else {
 					System.out.println("Input word is wrong. Please try our Spell Check feature.");
+				}
+			} else if(option == 3) {
+				if(! fullAccess) {
+					System.out.println("You don't have permission to insert a word. Get a Teacher permission.");
+					continue;
+				}
+				System.out.println("\nEnter the Word that needs to be inserted.\nNote - Special Characters and Numbers are not allowed.");
+				String insert = in.next();
+				insert = insert.trim().toLowerCase().replaceAll("[^a-z ]", "");
+				try{
+					trieUtil.insert(insert);
+					boolean flag = dic.WriteDictionary(insert);
+					if(!flag) {
+						System.out.println("Error in inserting the word. Please make sure its a valid alphabet only word.");
+						continue;
+					}
+					System.out.println(insert+" is inserted into the dictionary.");
+				} catch(Exception e) {
+					System.out.println("Error in inserting the word. Please make sure its a valid alphabet only word.");
+				}
+				
+			} else if(option == 4) {
+				if(! fullAccess) {
+					System.out.println("You don't have permission to delete a word. Get a Teacher permission.");
+					continue;
+				}
+				System.out.println("\nEnter the Word that needs to be deleted.\nNote - Special Characters and Numbers are not allowed.");
+				String delete = in.next();
+				delete = delete.trim().toLowerCase().replaceAll("[^a-z ]", "");
+				try{
+					trieUtil.delete(delete);
+					boolean flag = dic.DeleteFromDictionary(delete);
+					if(!flag) {
+						System.out.println("Error in deleting the word. Please make sure its a valid alphabet only word.");
+						continue;
+					}
+					System.out.println(delete+" is deleted from the dictionary.");
+				} catch(Exception e) {
+					System.out.println("Error in deleting the word. Please make sure its a valid alphabet only word.");
 				}
 			} else {
 				break;
