@@ -34,7 +34,12 @@ public class Dictionary {
 			String sCurrentLine;
 
 			while ((sCurrentLine = breader.readLine()) != null) {
-				trieUtil.insert(sCurrentLine);
+				sCurrentLine = sCurrentLine.toLowerCase().replaceAll("[^a-z ]", "");
+				if(sCurrentLine.matches("^[a-zA-Z]*$")) {
+					trieUtil.insert(sCurrentLine);
+					
+				}
+//				System.out.println(sCurrentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

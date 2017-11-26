@@ -1,5 +1,6 @@
 package sadden.dictionary.op;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -17,28 +18,26 @@ import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class MyFrame extends JFrame{
+public class MyFrame extends JFrame {
 
 	private Color background = new Color(0xf5f5f5);
-	
-	public MyFrame()
-	{
+
+	public MyFrame() {
 		super("Check Your Spell");
 		Container p = getContentPane();
 		setBounds(200, 200, 900, 600);
 		setVisible(true);
 		p.setBackground(background);
-		setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		
+
 		setResizable(true);
-		
+
 		AddSwig();
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		setTheme();
-		
+
 		setVisible(true);
 	}
 
@@ -49,16 +48,23 @@ public class MyFrame extends JFrame{
 		// TODO Auto-generated method stub
 
 		JPanel root = new JPanel();
-		//root.setLayout(new );
-		root.add(new JButton("我是JButton"));
-	      root.add(new JToggleButton("我是JToggleButton"));
-	      root.add(new JLabel("我是JLabel"));
-	      root.add(new JCheckBox("我是JCheckBox"));
-	      root.add(new JRadioButton("我是JRadioButton"));
-	      root.add(new JTextField("我是JTextField"));
-	      root.add(new JPasswordField("我是JPasswordField"));
-	      root.add(new JTextArea("我是JTextArea"));
-	      add(root);
+		root.setLayout(new BorderLayout());
+
+		JTextArea content =new JTextArea("Input the content");
+		JLabel label1 = new JLabel("path");
+		
+		root.add(BorderLayout.EAST, content);
+		root.add(BorderLayout.SOUTH, label1);
+		
+		
+		root.add(new JToggleButton("我是JToggleButton"));
+		root.add(new JLabel("我是JLabel"));
+		root.add(new JCheckBox("我是JCheckBox"));
+		root.add(new JRadioButton("我是JRadioButton"));
+		root.add(new JTextField("我是JTextField"));
+		root.add(new JPasswordField("我是JPasswordField"));
+		root.add(new JTextArea("我是JTextArea"));
+		add(root);
 	}
 
 	/**
@@ -82,5 +88,12 @@ public class MyFrame extends JFrame{
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		MyFrame frame = new MyFrame();
+
+	}
+
 }

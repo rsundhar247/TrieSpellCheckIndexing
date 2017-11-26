@@ -12,6 +12,8 @@ Key Features - Insert, Delete, Search, Spell Check, Auto Suggest
 package app;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import sadden.dictionary.op.*;
 
 public class SpellCheck {
@@ -19,17 +21,34 @@ public class SpellCheck {
 	static TrieUtil trieUtil = new TrieUtil();
 
 	public static void main(String[] args) {
-		String input = "Raj Imagination is the beginning of creation. You imagine what you desire; you will what you imagine; and at last you create what you will.";
-		
+		Scanner in = new Scanner(System.in);
 		//Loading the list of words from dictionary		
 		Dictionary dic = new Dictionary();
 		trieUtil = dic.ReadDictionary(trieUtil);
 		
-
-		
-		spellCheck(input); // function call to check the spelling of a sentence
-		System.out.println("\n");
-		System.out.println(trieUtil.autoSuggest("wh"));
+		while(true) {
+			System.out.println("\n\n\nEnter your Option:\n1. Spell Check.\n2. Auto Suggest.");
+			int option = in.nextInt();
+			if(option == 1) {
+				System.out.println("\nEnter the Sentence that needs to be spell checked.\nSpecial characters are not allowed.");
+				String sentence = in.next();
+				sentence += in.nextLine();
+				spellCheck(sentence);
+			} else if(option == 2) {
+				System.out.println("\nEnter the Starting Character(s) to get suggestion.");
+				String suggest = in.next();
+				suggest += in.nextLine();
+				ArrayList<String> suggestion = trieUtil.autoSuggest(suggest);
+				if(suggestion != null) {
+					System.out.println("\n"+suggestion);
+				} else {
+					System.out.println("Input word is wrong. Please try our Spell Check feature.");
+				}
+			} else {
+				break;
+			}
+		}
+		in.close();
 	}
 	
 	/*
