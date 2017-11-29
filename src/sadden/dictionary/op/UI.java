@@ -1,7 +1,7 @@
 package sadden.dictionary.op;
 
-import static javax.swing.GroupLayout.Alignment.BASELINE;
-import static javax.swing.GroupLayout.Alignment.LEADING;
+import static javax.swing.GroupLayout.Alignment.*;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +42,7 @@ public class UI extends JFrame{
         
         JButton button_check = new JButton("Check");
         JButton button_clear = new JButton("Clear");
-        
+        JButton button_admin = new JButton("Login as Admin");
 //        button_check.setVerticalTextPosition(AbstractButton.CENTER);
 //        button_check.setHorizontalTextPosition(AbstractButton.LEADING);
         button_check.setMnemonic(KeyEvent.VK_C);
@@ -73,7 +73,12 @@ public class UI extends JFrame{
             	input.setText("");
             }
          });
-        
+        button_admin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("Now Login");
+            	Admin admin = new Admin(cf.trieUtil);
+            }
+         });
         //new layout file
         GroupLayout layout = new GroupLayout(getContentPane()); 
         getContentPane().setLayout(layout);
@@ -87,9 +92,10 @@ public class UI extends JFrame{
             .addGroup(layout.createParallelGroup(LEADING)
                 .addComponent(label_input)
                 .addComponent(input))
-            .addGroup(layout.createParallelGroup(LEADING)
+            .addGroup(layout.createParallelGroup(CENTER)
             	.addComponent(button_check)
-            	.addComponent(button_clear))
+            	.addComponent(button_clear)
+            	.addComponent(button_admin))
             .addGroup(layout.createParallelGroup(LEADING)
                 .addComponent(label_output)
                 .addComponent(output))
@@ -106,7 +112,8 @@ public class UI extends JFrame{
                 .addComponent(input)
                 .addGroup(layout.createSequentialGroup()      		
                 	.addComponent(button_check)
-                	.addComponent(button_clear))
+                	.addComponent(button_clear)
+                	.addComponent(button_admin))
                 .addComponent(output))
         );
 

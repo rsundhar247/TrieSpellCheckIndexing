@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import sadden.dictionary.op.Dictionary;
 
 public class SpellCheckFunction {
-	static TrieUtil trieUtil = new TrieUtil();
+	public static TrieUtil trieUtil = new TrieUtil();
 
 	public SpellCheckFunction() {
 		Dictionary dic = new Dictionary();
