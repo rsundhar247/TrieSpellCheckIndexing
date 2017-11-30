@@ -76,6 +76,8 @@ public class UI extends JFrame{
         button_admin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	System.out.println("Now Login");
+            	Dictionary dic = new Dictionary();
+            	cf.trieUtil = dic.ReadDictionary(cf.trieUtil);
             	Admin admin = new Admin(cf.trieUtil);
             }
          });

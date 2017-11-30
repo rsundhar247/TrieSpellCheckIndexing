@@ -42,6 +42,8 @@ public class Admin extends JFrame{
 	            	if(name.equals("Sadden") && password.equals("123"))
 	            	{
 	            		System.out.println("Success");
+	            		Manipulate man = new Manipulate(trieUtil);
+	            		dispose();
 	            		
 	            	}
 	            }
@@ -82,7 +84,7 @@ public class Admin extends JFrame{
         );
 
 //        layout.linkSize(SwingConstants.VERTICAL, name_field, password_field);
-        setTitle("check");
+        setTitle("Login");
 //        pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
