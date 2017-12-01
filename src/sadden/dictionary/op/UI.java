@@ -6,6 +6,7 @@ import static javax.swing.GroupLayout.Alignment.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -17,15 +18,16 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import app.SpellCheckFunction;
+import app.editDis;
 public class UI extends JFrame{
 
-	public String res;
+	public ArrayList<String> res;
 	public SpellCheckFunction cf;
 	
 	
 	
 	public UI(){
-		res = null;
+		res = new ArrayList<String>();
         //set the bound
         setBounds(150, 250, 900, 400);
 		//Initial all the swing
@@ -54,14 +56,26 @@ public class UI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                String content = input.getText();
                cf = new SpellCheckFunction();
-               res = cf.Check(content);
+               res = SpellCheckFunction.spellCheck2(content);
                if(res ==null)
                {
             	   output.setText("No Wrong Spelling found");
                }
                else
                {
-            	   output.setText("Possible wrong spelling are below:\n"+res);
+            	String out = "";
+            	String sugg = "";
+       			for (String word : res) {
+       				
+       				out =out+word+"\n";
+       			}
+       			for (String word : res) {
+       				String autosugg = editDis.Suggestion(word);
+       				sugg =sugg+autosugg+"\n";
+       			}
+       			
+            	   output.setText("Possible wrong spelling are below:\n"+out+"\n-spelling suggestion------------\n"+sugg);
+            	   
                }
                
                
