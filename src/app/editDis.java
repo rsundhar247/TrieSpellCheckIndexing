@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class editDis {
-	public static String Suggestion(String word)
+	public static ArrayList<String> Suggestion(String word)
 	{
-		String sugg = null;
+		ArrayList<String> sugg = new ArrayList<String>();
 		int min = 999;
 		BufferedReader breader = null;
 		FileReader freader = null;
-		String path = "res//wordlist.txt";;
+		String path = "res//wordlist.txt";
 		try {		
 			freader = new FileReader(path);
 			breader = new BufferedReader(freader);
@@ -22,11 +22,22 @@ public class editDis {
 				sCurrentLine = sCurrentLine.toLowerCase().replaceAll("[^a-z ]", "");
 				if(sCurrentLine.matches("^[a-zA-Z]*$")) {
 					int distance = minDistance(word, sCurrentLine);
-					if(distance < min)
+					if(distance <= min)
 					{
-						min = distance;
-						sugg = sCurrentLine;
-						System.out.println(sCurrentLine);
+						if(distance == min)
+						{
+							sugg.add(sCurrentLine);
+						//	System.out.println(sCurrentLine);
+							min = distance;
+						}
+						else
+						{
+							sugg.clear();
+							sugg.add(sCurrentLine);
+						//	System.out.println(sCurrentLine);
+							min = distance;
+						}
+						
 					}
 
 				}

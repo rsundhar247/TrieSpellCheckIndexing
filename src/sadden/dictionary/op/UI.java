@@ -45,6 +45,8 @@ public class UI extends JFrame{
         JButton button_check = new JButton("Check");
         JButton button_clear = new JButton("Clear");
         JButton button_admin = new JButton("Login as Admin");
+        JButton button_replace = new JButton("Replace");
+        
 //        button_check.setVerticalTextPosition(AbstractButton.CENTER);
 //        button_check.setHorizontalTextPosition(AbstractButton.LEADING);
         button_check.setMnemonic(KeyEvent.VK_C);
@@ -70,12 +72,33 @@ public class UI extends JFrame{
        				out =out+word+"\n";
        			}
        			for (String word : res) {
-       				String autosugg = editDis.Suggestion(word);
-       				sugg =sugg+autosugg+"\n";
+       				sugg =sugg+"suggestion for "+word+" :\n";
+       				ArrayList<String> suggL = editDis.Suggestion(word);
+       				int num = suggL.size();
+       				if(num==1)
+       				{
+       					sugg =sugg+suggL.get(0)+"\t";
+       				}
+       				else if (num==2)
+       				{
+       					sugg =sugg+suggL.get(0)+"\t";
+       					sugg =sugg+suggL.get(1)+"\t";
+       				}
+       				else
+       				{
+       					sugg =sugg+suggL.get(0)+"\t";
+       					sugg =sugg+suggL.get(1)+"\t";
+       					sugg =sugg+suggL.get(2)+"\t";
+       				}
+       				sugg =sugg+"\n";
+       				
        			}
        			
+       			String s1 = "Possible wrong spelling are below:\n";
+       			String s2 = "\n-spelling suggestion------------\n";
+       			
             	   output.setText("Possible wrong spelling are below:\n"+out+"\n-spelling suggestion------------\n"+sugg);
-            	   
+//            	   output.setText("<html><font color=\"red\">"+s1+out+s2+sugg+"</font></html>");
                }
                
                
@@ -95,6 +118,35 @@ public class UI extends JFrame{
             	Admin admin = new Admin(cf.trieUtil);
             }
          });
+        
+        button_replace.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	//replace all the wrong words by the suggestion
+            	
+            	String content = input.getText();
+            	if(res == null)
+            	{
+            		
+            	}
+            	else
+            	{
+            		for (String word : res) {
+            			ArrayList<String> sugg = editDis.Suggestion(word);
+           				String autosugg = sugg.get(0);
+           				content = content.replaceAll(word, autosugg);
+           				System.out.println("replace "+word+" by "+autosugg);
+           				
+           			}
+            		input.setText(content);
+            	}
+            	
+            	
+            	
+            	
+            }
+         });
+        
+        
         //new layout file
         GroupLayout layout = new GroupLayout(getContentPane()); 
         getContentPane().setLayout(layout);
@@ -111,7 +163,8 @@ public class UI extends JFrame{
             .addGroup(layout.createParallelGroup(CENTER)
             	.addComponent(button_check)
             	.addComponent(button_clear)
-            	.addComponent(button_admin))
+            	.addComponent(button_admin)
+            	.addComponent(button_replace))
             .addGroup(layout.createParallelGroup(LEADING)
                 .addComponent(label_output)
                 .addComponent(output))
@@ -129,6 +182,7 @@ public class UI extends JFrame{
                 .addGroup(layout.createSequentialGroup()      		
                 	.addComponent(button_check)
                 	.addComponent(button_clear)
+                	.addComponent(button_replace)
                 	.addComponent(button_admin))
                 .addComponent(output))
         );

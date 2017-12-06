@@ -45,7 +45,7 @@ public class Dictionary {
 					}
 					
 				}
-				System.out.println(sCurrentLine);
+			//	System.out.println(sCurrentLine);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
