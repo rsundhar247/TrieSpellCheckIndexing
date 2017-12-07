@@ -46,6 +46,11 @@ public class Admin extends JFrame{
 	            		dispose();
 	            		
 	            	}
+	            	else
+	            	{
+	            		name_field.setText("");
+	            		password_field.setText("");
+	            	}
 	            }
 	         });
 		
